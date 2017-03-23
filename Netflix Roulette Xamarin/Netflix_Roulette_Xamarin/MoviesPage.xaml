@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Netflix_Roulette_Xamarin.MoviesPage"
+             Title="Movies"
+             NavigationPage.HasNavigationBar="True">
+    <StackLayout Padding="10">
+        <SearchBar Placeholder="Actor Name" HeightRequest="50" TextChanged="SearchBar_TextChanged"/>
+        <ListView x:Name="moviesListView" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="{Binding Poster}" 
+                               Text="{Binding MovieTitle}"
+                               Detail="{Binding ReleaseYear}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label x:Name="moviesExist" IsVisible="False" Text="No Movies Exist." FontSize="40"/>
+    </StackLayout>
+</ContentPage>

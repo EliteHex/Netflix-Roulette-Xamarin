@@ -13,7 +13,7 @@ namespace Netflix_Roulette_Xamarin
         {
             InitializeComponent();
 
-            MainPage = new Netflix_Roulette_Xamarin.MainPage();
+            MainPage = new NavigationPage(new MoviesPage());
         }
 
         protected override void OnStart()
