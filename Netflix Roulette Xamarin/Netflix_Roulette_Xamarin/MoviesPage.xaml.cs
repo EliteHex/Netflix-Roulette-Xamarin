@@ -16,7 +16,7 @@ using Xamarin.Forms.Xaml;
 
 namespace Netflix_Roulette_Xamarin
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MoviesPage : ContentPage
     {
         private string Url = "http://netflixroulette.net/api/api.php?actor={0}";
@@ -25,16 +25,25 @@ namespace Netflix_Roulette_Xamarin
 
         public MoviesPage()
         {
+            BindingContext = this;
             InitializeComponent();
+            //ActivityRunning = false;
             //BindingContext = new MoviesPageViewModel();
         }
 
-        protected override void OnAppearing()
+        public static readonly BindableProperty ActivityRunningProperty =
+            BindableProperty.Create("ActivityRunning", typeof(bool), typeof(MoviesPage), false);
+        public bool ActivityRunning
         {
-            //var response = await _client.GetAsync(String.Format(Url, "Gibson"));
-            
+            get
+            {
+                return (bool)GetValue(ActivityRunningProperty);
+            }
+            set
+            {
+                SetValue(ActivityRunningProperty, value);
+            }
 
-            base.OnAppearing();
         }
 
         async private void SearchForMovies(string appendValue)
@@ -47,17 +56,22 @@ namespace Netflix_Roulette_Xamarin
                 moviesListView.ItemsSource = null;
                 moviesExist.IsVisible = true;
 
-                //await DisplayAlert("Oops!", "No movies were found matching the search", "OK");
+                ActivityRunning = false;
                 return;
             }
             else if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 moviesListView.ItemsSource = null;
                 await DisplayAlert("Error!", "Error.", "OK");
+                ActivityRunning = false;
                 return;
             }
 
+            moviesExist.IsVisible = false;
+            moviesListView.IsVisible = true;
+
             var content = await _client.GetStringAsync(stringParam);
+            ActivityRunning = false;
             var movieList = JsonConvert.DeserializeObject <List<Movies>>(content);
             _movies = new ObservableCollection<Movies>(movieList);
             moviesListView.ItemsSource = _movies;
@@ -65,10 +79,15 @@ namespace Netflix_Roulette_Xamarin
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(e.NewTextValue != e.OldTextValue && 
-               !String.IsNullOrEmpty(e.NewTextValue) &&
-               e.NewTextValue.Length >= 5)
+            if(String.IsNullOrEmpty(e.NewTextValue))
             {
+                moviesListView.ItemsSource = null;
+            }
+
+            if(e.NewTextValue != e.OldTextValue && 
+                e.NewTextValue.Trim().Length >= 5)
+            {
+                ActivityRunning = true;
                 SearchForMovies(e.NewTextValue);
             }
         }

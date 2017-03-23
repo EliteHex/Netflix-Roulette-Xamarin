@@ -4,17 +4,22 @@
              x:Class="Netflix_Roulette_Xamarin.MoviesPage"
              Title="Movies"
              NavigationPage.HasNavigationBar="True">
-    <StackLayout Padding="10">
-        <SearchBar Placeholder="Actor Name" HeightRequest="50" TextChanged="SearchBar_TextChanged"/>
-        <ListView x:Name="moviesListView" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ImageCell ImageSource="{Binding Poster}" 
-                               Text="{Binding MovieTitle}"
-                               Detail="{Binding ReleaseYear}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Label x:Name="moviesExist" IsVisible="False" Text="No Movies Exist." FontSize="40"/>
-    </StackLayout>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout Padding="10">
+            <SearchBar Placeholder="Actor Name" HeightRequest="50" TextChanged="SearchBar_TextChanged"/>
+            <ListView x:Name="moviesListView" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding Poster}" 
+                                   Text="{Binding MovieTitle}"
+                                   Detail="{Binding ReleaseYear}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label x:Name="moviesExist" IsVisible="False" Text="No Movies Exist." FontSize="40"/>
+        </StackLayout>
+        <ActivityIndicator IsRunning="{Binding ActivityRunning}"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,100,100"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"/>
+    </AbsoluteLayout>
 </ContentPage>
