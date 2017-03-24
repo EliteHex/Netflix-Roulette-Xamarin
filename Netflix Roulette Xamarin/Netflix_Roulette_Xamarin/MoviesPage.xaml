@@ -16,9 +16,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label x:Name="moviesExist" IsVisible="False" Text="No Movies Exist." FontSize="40"/>
+            <Label x:Name="notFound" IsVisible="False" Text="No Movies Exist." FontSize="40"/>
         </StackLayout>
-        <ActivityIndicator IsRunning="{Binding ActivityRunning}"
+        <ActivityIndicator IsRunning="{Binding IsSearching}"
                            AbsoluteLayout.LayoutBounds="0.5,0.5,100,100"
                            AbsoluteLayout.LayoutFlags="PositionProportional"/>
     </AbsoluteLayout>
