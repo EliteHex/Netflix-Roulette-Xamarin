@@ -16,11 +16,27 @@ namespace Netflix_Roulette_Xamarin
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MovieDetailsPage : ContentPage
     {
-        public MovieDetailsPage()
+        private MovieService _service = new MovieService();
+        public string MovieTitle { get; set; }
+
+        public MovieDetailsPage(string movieTitle)
         {
             BindingContext = this;
+            MovieTitle = movieTitle;
             InitializeComponent();
             //BindingContext = new ContentPageViewModel();
+        }
+
+        async private void GetMovieDetails()
+        {
+            var movie = await _service.GetMovie(MovieTitle);
+        }
+
+        protected override void OnAppearing()
+        {
+
+
+            base.OnAppearing();
         }
     }
 
