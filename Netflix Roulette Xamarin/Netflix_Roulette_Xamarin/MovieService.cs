@@ -31,8 +31,9 @@ namespace Netflix_Roulette_Xamarin
 
         public async Task<Movie> GetMovie(string title)
         {
+            return new Movie();
             //title={0}
-            return new Task<Movie>(()=> { new Movie(); });
+            //return new Task<Movie>(()=> { new Movie(); });
         }
     }
 }

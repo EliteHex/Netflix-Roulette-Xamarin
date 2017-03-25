@@ -13,15 +13,13 @@ namespace Netflix_Roulette_Xamarin
     //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MoviesPage : ContentPage
     {
-        private ObservableCollection<Movie> _movies;
+        //private ObservableCollection<Movie> _movies;
         private MovieService _service = new MovieService();
 
         public MoviesPage()
         {
             BindingContext = this;
             InitializeComponent();
-            //ActivityRunning = false;
-            //BindingContext = new MoviesPageViewModel();
         }
 
         public static readonly BindableProperty IsSearchingProperty =
@@ -48,7 +46,7 @@ namespace Netflix_Roulette_Xamarin
                 moviesListView.IsVisible = movies.Any();
                 notFound.IsVisible = !moviesListView.IsVisible;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 await DisplayAlert("Error", "There was an issue retrieving data.", "OK");
             }
@@ -56,32 +54,6 @@ namespace Netflix_Roulette_Xamarin
             {
                 IsSearching = false;
             }
-
-            //if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            //{
-            //    moviesListView.IsVisible = false;
-            //    moviesListView.ItemsSource = null;
-            //    moviesExist.IsVisible = true;
-
-            //    ActivityRunning = false;
-            //    return;
-            //}
-            //else if (response.StatusCode != System.Net.HttpStatusCode.OK)
-            //{
-            //    moviesListView.ItemsSource = null;
-            //    await DisplayAlert("Error!", "Error.", "OK");
-            //    ActivityRunning = false;
-            //    return;
-            //}
-
-            //moviesExist.IsVisible = false;
-            //moviesListView.IsVisible = true;
-
-            //var content = await _client.GetStringAsync(stringParam);
-            //ActivityRunning = false;
-            //var movieList = JsonConvert.DeserializeObject <List<Movie>>(content);
-            //_movies = new ObservableCollection<Movie>(movieList);
-            //moviesListView.ItemsSource = _movies;
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -94,7 +66,7 @@ namespace Netflix_Roulette_Xamarin
             if(e.NewTextValue != e.OldTextValue && 
                 e.NewTextValue.Trim().Length >= 5)
             {
-                ActivityRunning = true;
+                IsSearching = true;
                 SearchForMovies(e.NewTextValue);
             }
         }
