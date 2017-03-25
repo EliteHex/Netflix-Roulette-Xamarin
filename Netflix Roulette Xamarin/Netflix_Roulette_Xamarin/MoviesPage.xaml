@@ -7,7 +7,7 @@
     <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <StackLayout Padding="10">
             <SearchBar Placeholder="Actor Name" HeightRequest="50" TextChanged="SearchBar_TextChanged"/>
-            <ListView x:Name="moviesListView" >
+            <ListView x:Name="moviesListView" ItemSelected="moviesListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding Poster}" 

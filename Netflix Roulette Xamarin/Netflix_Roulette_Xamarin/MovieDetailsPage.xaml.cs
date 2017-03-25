@@ -18,36 +18,37 @@ namespace Netflix_Roulette_Xamarin
     {
         public MovieDetailsPage()
         {
+            BindingContext = this;
             InitializeComponent();
             //BindingContext = new ContentPageViewModel();
         }
     }
 
-    class MovieDetailsPageViewModel : INotifyPropertyChanged
-    {
-        public MovieDetailsPageViewModel()
-        {
-            IncreaseCountCommand = new Command(IncreaseCount);
-        }
+    //class MovieDetailsPageViewModel : INotifyPropertyChanged
+    //{
+    //    public MovieDetailsPageViewModel()
+    //    {
+    //        IncreaseCountCommand = new Command(IncreaseCount);
+    //    }
 
-        int count;
+    //    int count;
 
-        string countDisplay = "You clicked 0 times.";
-        public string CountDisplay
-        {
-            get { return countDisplay; }
-            set { countDisplay = value; OnPropertyChanged(); }
-        }
+    //    string countDisplay = "You clicked 0 times.";
+    //    public string CountDisplay
+    //    {
+    //        get { return countDisplay; }
+    //        set { countDisplay = value; OnPropertyChanged(); }
+    //    }
 
-        public ICommand IncreaseCountCommand { get; }
+    //    public ICommand IncreaseCountCommand { get; }
 
-        void IncreaseCount() =>
-            CountDisplay = $"You clicked {++count} times";
+    //    void IncreaseCount() =>
+    //        CountDisplay = $"You clicked {++count} times";
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged([CallerMemberName]string propertyName = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //    public event PropertyChangedEventHandler PropertyChanged;
+    //    void OnPropertyChanged([CallerMemberName]string propertyName = "") =>
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-    }
+    //}
 }

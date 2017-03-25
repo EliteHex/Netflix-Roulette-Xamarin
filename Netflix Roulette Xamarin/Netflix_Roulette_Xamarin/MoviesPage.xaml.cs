@@ -70,6 +70,11 @@ namespace Netflix_Roulette_Xamarin
                 SearchForMovies(e.NewTextValue);
             }
         }
+
+        async private void moviesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new MovieDetailsPage());
+        }
     }
 
     
