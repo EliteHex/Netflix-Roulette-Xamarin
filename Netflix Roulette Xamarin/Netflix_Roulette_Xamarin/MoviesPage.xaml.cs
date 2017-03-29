@@ -68,12 +68,20 @@ namespace Netflix_Roulette_Xamarin
             {
                 IsSearching = true;
                 SearchForMovies(e.NewTextValue);
+                moviesListView.ItemDisappearing += MoviesListView_ItemDisappearing;
             }
+        }
+
+        private void MoviesListView_ItemDisappearing(object sender, ItemVisibilityEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         async private void moviesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushAsync(new MovieDetailsPage());
+            if (e.SelectedItem == null) return;
+            await Navigation.PushAsync(new MovieDetailsPage((e.SelectedItem as Movie).MovieTitle));
+            moviesListView.SelectedItem = null;
         }
     }
 

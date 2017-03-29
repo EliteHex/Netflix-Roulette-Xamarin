@@ -31,9 +31,15 @@ namespace Netflix_Roulette_Xamarin
 
         public async Task<Movie> GetMovie(string title)
         {
-            return new Movie();
-            //title={0}
-            //return new Task<Movie>(()=> { new Movie(); });
+            var stringParam = String.Format(Url, "title=", title);
+            var response = await _client.GetAsync(stringParam);
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return new Movie();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var movieList = JsonConvert.DeserializeObject<Movie>(content);
+            return movieList;
         }
     }
 }
